@@ -2,3 +2,27 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+button {
+    @apply rounded-lg p-3 min-w-32 font-semibold;
+    &[disabled] {
+        @apply opacity-50 bg-slate-200;
+    }
+}
+
+.form-control {
+    & > div {
+        @apply my-3 
+    }
+    .control {
+        @apply outline-none px-3 py-2 border border-indigo-100 shadow-sm shadow-indigo-100 w-full rounded-lg
+    }
+    label {
+        @apply mb-1 text-sm font-semibold text-indigo-950 p-1
+    }
+}
+
+.accordion-collapsed {
+    @apply max-h-0 overflow-hidden
+}
