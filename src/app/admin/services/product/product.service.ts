@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Product, StatusResponse } from '../../interface.admin';
-import { of } from 'rxjs';
+import { Product, ServiceResponse } from '../../interface.admin';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,12 +9,12 @@ export class ProductService {
 
   constructor() { }
 
-  create(product: Product) {
+  create(product: Product): Observable<ServiceResponse> {
     const message = 'Producto guardado correctamente';
     const savedProducts = sessionStorage.getItem('products');
     if (!savedProducts) {
       sessionStorage.setItem('products', JSON.stringify([product]));
-      return of({ message });
+      return of({ message, status: 'success' });
     }
     const _products = JSON.parse(savedProducts);
     _products.push(product);

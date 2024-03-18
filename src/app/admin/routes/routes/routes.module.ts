@@ -3,10 +3,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from '../../pages/login/login.component';
 import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
 import { LayoutComponent } from '../../layout/layout/layout.component';
-import { SidebarComponent } from '../../components/sidebar/sidebar.component';
+import { AccordionComponent } from '../../components/accordion/accordion.component';
 import { CreateComponent } from '../../pages/products/create/create.component';
 import { ToggleComponent } from '../../components/toggle/toggle.component';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 
 const routes: Routes = [
@@ -37,13 +38,14 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     LayoutComponent,
-    SidebarComponent,
     ToggleComponent,
-    CreateComponent
+    CreateComponent,
+    AccordionComponent
   ],
   imports: [
     RouterModule.forChild(routes),
-    CommonModule
+    CommonModule,
+    FormsModule
   ],
   exports: [
     RouterModule,

@@ -1,0 +1,11 @@
+<div class="transition-all">
+    <button (click)="onToggle()"
+        class=" p-2 top-0 w-full h-full transition-colors text-left font-semibold text-lg text-indigo-950 hover:cursor-pointer hover:bg-indigo-200"
+        [ngClass]="behaviorHandler"
+    >
+        {{ title }}
+    </button>
+    <div class="transition-all overflow-hidden shadow-inner bg-indigo-100 rounded-b-lg" [ngClass]="active ? 'p-1 min-h-max': 'h-0'">
+        <ng-content />
+    </div>
+</div>

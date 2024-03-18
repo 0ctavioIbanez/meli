@@ -8,18 +8,20 @@ export interface Routes {
 export interface Model {
     id: string,
     color: string,
-    size: string
+    hex?: string
+    size: string,
+    stock: number
 }
 
 export interface Product {
     id: string,
     name: string,
+    amount: number | string,
     description?: string,
     models?: Model[]
 }
 
-export enum StatusResponse {
-    'success',
-    'error',
-    'warning'
+export interface ServiceResponse {
+    message: string,
+    status: string
 }
