@@ -32,3 +32,11 @@ export interface ModelActionClick{
     action: string,
     modelId: string
 }
+
+export interface Sale {
+    id: string
+    productId: string,
+    modelId: string,
+    quantity: number,
+    total: number
+}

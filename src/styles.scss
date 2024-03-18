@@ -5,7 +5,7 @@
 
 
 .primary-btn {
-    @apply rounded-lg p-3 min-w-32 font-semibold shadow;
+    @apply rounded-lg p-3 min-w-32 font-semibold shadow hover:cursor-pointer;
     &[disabled] {
         @apply opacity-50 bg-slate-300;
     }

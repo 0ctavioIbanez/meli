@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { ModelActionClick, Product, ServiceResponse } from 'src/app/admin/interface.admin';
+import { Model, ModelActionClick, Product, ServiceResponse } from 'src/app/admin/interface.admin';
 import { ProductService } from 'src/app/admin/services/product/product.service';
+import { SalesService } from 'src/app/admin/services/sales/sales.service';
+import { v4 } from 'uuid';
 
 @Component({
   selector: 'app-all',
@@ -10,13 +12,14 @@ import { ProductService } from 'src/app/admin/services/product/product.service';
 })
 export class AllComponent {
   products: Product[] = [];
-  showSaleElement: boolean = false;
-  showEnterElement: boolean = false;
+  registerType: string = '';
+  modelSelectedId: string = '';
+  productSelected: Product | any = {};
+  quantity: number = 0;
+  description: string = '';
 
-  constructor(private productService: ProductService, private router: Router) {
+  constructor(private productService: ProductService, private saleService: SalesService, private router: Router) {
     this.productService.get().subscribe(({ response }: ServiceResponse) => {
-      console.log("ls", response);
-      
       this.products = response
     });
   }
@@ -32,19 +35,26 @@ export class AllComponent {
     }
   }
 
-  modelActionClick({ action, modelId }: ModelActionClick, productId: string) {
-    console.log(action);
-    
+  modelActionClick({ action, modelId }: ModelActionClick, productId: string, product: Product) {
+    this.productSelected = product;
     if (action === 'edit') {
       this.router.navigateByUrl(`/admin/products/product?productId=${productId}&modelId=${modelId}`);
-      return
-    }
-    if (action === 'out') {
-      this.showSaleElement = true;
       return;
     }
-    if (action === 'in') {
-      this.showEnterElement = true;
-    }
+    this.registerType = action;
+    this.modelSelectedId = modelId;
+  }
+
+  confirm() {
+    this.saleService.new({
+      id: v4(),
+      productId: this.productSelected.id,
+      modelId: this.modelSelectedId,
+      quantity: this.quantity,
+      total: this.quantity * this.productSelected.amount
+    }).subscribe(res => {
+      this.quantity = 0;
+      this.description = '';
+    })
   }
 }
