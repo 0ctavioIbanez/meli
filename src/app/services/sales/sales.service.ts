@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Sale } from '../../interface.admin';
+import { Sale } from '../../admin/interface.admin';
 import { of } from 'rxjs';
 
 @Injectable({

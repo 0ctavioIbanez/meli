@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Model, Product } from '../../interface.admin';
+import { Model, Product } from '../../admin/interface.admin';
 import { of } from 'rxjs';
 
 @Injectable({

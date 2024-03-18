@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Product, ServiceResponse } from '../../interface.admin';
+import { Product, ServiceResponse } from '../../admin/interface.admin';
 import { Observable, of } from 'rxjs';
 
 @Injectable({

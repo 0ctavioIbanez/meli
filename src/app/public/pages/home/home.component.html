@@ -1,0 +1,3 @@
+<section class="container mx-auto">
+    <product-card class="w-52" [product]="product" (addCart)="addProductToCart($event)" *ngFor="let product of products"></product-card>
+</section>

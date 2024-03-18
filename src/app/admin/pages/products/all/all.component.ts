@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Model, ModelActionClick, Product, ServiceResponse } from 'src/app/admin/interface.admin';
-import { ProductService } from 'src/app/admin/services/product/product.service';
-import { SalesService } from 'src/app/admin/services/sales/sales.service';
+import { ProductService } from 'src/app/services/product/product.service';
+import { SalesService } from 'src/app/services/sales/sales.service';
 import { v4 } from 'uuid';
 
 @Component({

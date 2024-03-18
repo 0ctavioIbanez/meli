@@ -1,8 +1,8 @@
 import { Component, DoCheck } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Model, Product, ServiceResponse } from 'src/app/admin/interface.admin';
-import { ModelService } from 'src/app/admin/services/model/model.service';
-import { ProductService } from 'src/app/admin/services/product/product.service';
+import { ModelService } from 'src/app/services/model/model.service';
+import { ProductService } from 'src/app/services/product/product.service';
 import { v4 as uuid } from 'uuid';
 
 @Component({
