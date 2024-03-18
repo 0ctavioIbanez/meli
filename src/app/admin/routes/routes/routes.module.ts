@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { LoginComponent } from '../../pages/login/login.component';
 import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
 import { LayoutComponent } from '../../layout/layout/layout.component';
@@ -7,7 +8,9 @@ import { AccordionComponent } from '../../components/accordion/accordion.compone
 import { CreateComponent } from '../../pages/products/create/create.component';
 import { ToggleComponent } from '../../components/toggle/toggle.component';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { AllComponent } from '../../pages/products/all/all.component';
+import { IconsModule } from 'src/app/icons/icons.module';
+import { ModelCardComponent } from '../../components/model-card/model-card.component';
 
 
 const routes: Routes = [
@@ -22,10 +25,20 @@ const routes: Routes = [
       {
         path: 'dashboard',
         component: DashboardComponent
+      }
+    ]
+  },
+  {
+    path: 'products',
+    component: LayoutComponent,
+    children: [
+      {
+        path: 'product',
+        component: CreateComponent
       },
       {
-        path: 'products/create',
-        component: CreateComponent
+        path: 'all',
+        component: AllComponent
       }
     ]
   },
@@ -40,12 +53,15 @@ const routes: Routes = [
     LayoutComponent,
     ToggleComponent,
     CreateComponent,
-    AccordionComponent
+    AccordionComponent,
+    AllComponent,
+    ModelCardComponent
   ],
   imports: [
     RouterModule.forChild(routes),
     CommonModule,
-    FormsModule
+    FormsModule,
+    IconsModule
   ],
   exports: [
     RouterModule,

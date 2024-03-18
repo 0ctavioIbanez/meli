@@ -1,0 +1,50 @@
+<section class="flex">
+    <div class="bg-white p-3 rounded-lg shadow-lg shadow-indigo-50 flex-grow">
+        <div *ngIf="!products?.length" class="flex justify-center">
+            <div>
+                <div>
+                    <i class="text-indigo-800">Aún no hay productos registrados <a class="text-yellow-500 not-italic underline" routerLink="/admin/products/product">Crear nuevo</a> </i>
+                </div>
+            </div>
+        </div>
+        <table *ngIf="products?.length" class="w-full">
+            <thead class="text-indigo-950 text-left">
+                <th class="py-1">No.</th>
+                <th class="py-1">Producto</th>
+                <th class="py-1">Costo</th>
+                <th class="py-1">Descripcion</th>
+                <th class="py-1"></th>
+            </thead>
+            <tbody *ngFor="let product of products; let i = index">
+                <tr class="text-indigo-900 font-semibold"
+                    [ngClass]="i % 2 === 0 ? 'bg-indigo-100' : ''">
+                    <td class="px-1 py-2">{{ i + 1}}</td>
+                    <td class="px-1 py-2">{{ product.name }}</td>
+                    <td class="px-1 py-2">{{ product.amount }}</td>
+                    <td class="px-1 py-2">{{ product.description }}</td>
+                    <td class="px-1 py-2 text-right">
+                        <button class="w-8 aspect-square bg-indigo-50 text-indigo-800 rounded-lg pt-1" routerLink="/admin/products/product" [queryParams]="{productId: product.id}"><i-tabler name="pencil" /></button>
+                    </td>
+                    <td class="px-1 py-2 text-right">
+                        <button #icon class="transition-transform" (click)="toggleRow(accordion, icon)"><i-tabler
+                                name="chevron-up" /></button>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="6" class="bg-indigo-50 shadow-inner" collapsed #accordion>
+                        <div class="overflow-x-scroll">
+                            <div class="flex p-3">
+                                <model-card class="mr-2" *ngFor="let _model of product.models" [model]="_model" (onActionClick)="modelActionClick($event, product.id)"></model-card>
+                                <div class="w-full flex justify-center" *ngIf="!product.models?.length">
+                                    <i class="text-center">No se encontraron modelos</i>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="showSaleElement" class="w-1/4"></div>
+    <div *ngIf="showSaleElement" class="w-1/4"></div>
+</section>

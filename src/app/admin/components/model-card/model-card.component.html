@@ -1,0 +1,22 @@
+<div class="rounded-lg shadow-md p-2 shadow-indigo-100 bg-white text-sm">
+    <div class="flex items-center p-1 bg-indigo-50 rounded-md mb-1">
+        <h4 class="font-semibold">Color: </h4><p>{{ model.color }}</p>
+    </div>
+    <div class="flex items-center p-1 bg-indigo-50 rounded-md mb-1">
+        <h4 class="font-semibold">Talla: </h4><p>{{ model.size }}</p>
+    </div>
+    <div class="flex items-center p-1 bg-indigo-50 rounded-md mb-1">
+        <h4 class="font-semibold">Stock: </h4><p>{{ model.stock }}</p>
+    </div>
+    <div class="mt-2 border-t border-indigo-50 flex justify-center pt-2">
+        <button (click)="onClick('in')" class="rounded-full w-6 h-6 bg-indigo-50 text-indigo-400 mx-0.5 pt-1 hover:bg-indigo-300 hover:text-indigo-800 transition-colors">
+            <i-tabler style="width: 16px;" name="stack-push" />
+        </button>
+        <button (click)="onClick('out')" class="rounded-full w-6 h-6 bg-indigo-50 text-indigo-400 mx-0.5 pt-1 hover:bg-indigo-300 hover:text-indigo-800 transition-colors">
+            <i-tabler style="width: 16px;" name="currency-dollar" />
+        </button>
+        <button (click)="onClick('edit')" class="rounded-full w-6 h-6 bg-indigo-50 text-indigo-400 mx-0.5 pt-1 hover:bg-indigo-300 hover:text-indigo-800 transition-colors">
+            <i-tabler style="width: 16px;" name="pencil" />
+        </button>
+    </div>
+</div>

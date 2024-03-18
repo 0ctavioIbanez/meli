@@ -1,5 +1,5 @@
 import { Component, DoCheck } from '@angular/core';
-import { Observable, Observer } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Model, Product, ServiceResponse } from 'src/app/admin/interface.admin';
 import { ModelService } from 'src/app/admin/services/model/model.service';
 import { ProductService } from 'src/app/admin/services/product/product.service';
@@ -18,6 +18,7 @@ export class CreateComponent implements DoCheck {
     id: uuid(),
     name: '',
     amount: 0,
+    price: 0
   };
   model: Model = {
     id: uuid(),
@@ -27,8 +28,8 @@ export class CreateComponent implements DoCheck {
   };
   models: Model[] = [];
 
-  constructor(private producService: ProductService, private modelService: ModelService) {
-
+  constructor(private producService: ProductService, private modelService: ModelService, private route: ActivatedRoute, private router: Router) {
+    this.get(this.route.snapshot.queryParams['productId']);
   }
 
   ngDoCheck() {
@@ -52,13 +53,25 @@ export class CreateComponent implements DoCheck {
     
     if (!isValid) {
       this.isModelFilled = false;
+    } else {
+      this.isModelFilled = true;
     }
-    this.isModelFilled = true;
   }
 
   private responseHandler({ message, status }: ServiceResponse) {
     console.log("TODO");
-    
+  }
+
+  get(productId: 'string' | undefined) {
+    if (!productId) {
+      return;
+    }
+    this.producService.get(productId).subscribe(({ response = {} }: ServiceResponse) => {
+      const { models = [] } = response;
+      
+      this.product = response;
+      this.models = models;
+    });
   }
 
   onAddClick() {
@@ -78,12 +91,15 @@ export class CreateComponent implements DoCheck {
       hex: '#000000',
       stock: 0
     };
-    this.isModelFilled = false;
   }
 
   createProduct() {
     this.producService.create(this.product).subscribe((res: any) => this.responseHandler(res));
-    this.modelService.addToProduct(this.product.id, this.models).subscribe(res => this.responseHandler(res));
+    this.modelService.addToProduct(this.product.id, this.models).subscribe(res => {
+      this.responseHandler(res);
+      this.models = [];
+      this.router.navigateByUrl(`/admin/products/product?productId=${this.product.id}`);
+    });
   }
 
 }

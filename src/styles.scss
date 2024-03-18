@@ -33,3 +33,7 @@
 .accordion-collapsed {
     @apply max-h-0 overflow-hidden
 }
+
+td[collapsed] {
+    @apply h-0 overflow-hidden hidden
+}

@@ -9,7 +9,21 @@ export class ProductService {
 
   constructor() { }
 
+  get(productId: string | false = false) {
+    const products = sessionStorage.getItem('products');
+    if (!products) {
+      return of({ message: 'No se encontraron productos', status: 'empty' });
+    }
+    const response = JSON.parse(products);
+
+    if (productId) {
+      return of({ message: '', status: 'success', response: response.find(({ id }: Product) => id === productId) });
+    }
+    return of({ message: '', status: 'success', response });
+  }
+
   create(product: Product): Observable<ServiceResponse> {
+    delete product.models
     const message = 'Producto guardado correctamente';
     const savedProducts = sessionStorage.getItem('products');
     if (!savedProducts) {
@@ -17,6 +31,11 @@ export class ProductService {
       return of({ message, status: 'success' });
     }
     const _products = JSON.parse(savedProducts);
+
+    if (_products.find(({ id }: Product) => id === product.id)) {
+      return of({ status: 'warning', message: 'El producto ya ha sido registrado' });
+    }
+
     _products.push(product);
     sessionStorage.setItem('products', JSON.stringify(_products));
     return of({ message, status: 'success' });

@@ -11,14 +11,15 @@ export class LayoutComponent {
   routes: Routes[] = [{
     path: 'products',
     label: 'Productos',
-    items: [{
-      path: '/admin/products/create',
-      label: 'Registro',
-      icon: ''
-    },
-    {
-      path: '/admin/products/create',
-      label: 'Edición',
+    items: [
+      {
+        path: '/admin/products/all',
+        label: 'Mis productos',
+        icon: ''
+      },
+      {
+      path: '/admin/products/product',
+      label: 'Nuevo',
       icon: ''
     }]
   }];
