@@ -1,6 +1,6 @@
 <div class="rounded-lg shadow-md bg-white w-60 hover:cursor-pointer hover:shadow-lg transition-shadow overflow-hidden">
     <div class="">
-        <img src="https://www.nordicsocks.com/cdn/shop/products/Sofia-4_1200x.jpg?v=1704467462" alt="">
+        <img [src]="'data:image/jpeg;base64, '+product.image" alt="">
     </div>
     <div class="p-1">
         <h2 class="text-center font-semibold text-slate-600 text-xs">{{product.name}}</h2>

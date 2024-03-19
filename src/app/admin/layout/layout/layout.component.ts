@@ -8,23 +8,21 @@ import { Routes } from '../../interface.admin';
 })
 
 export class LayoutComponent {
-  routes: Routes[] = [{
-    path: 'products',
-    label: 'Productos',
-    items: [
-      {
-        path: '/admin/products/all',
-        label: 'Mis productos',
-        icon: ''
-      },
-      {
+  routes: Routes[] = [
+    {
       path: '/admin/products/product',
-      label: 'Nuevo',
-      icon: ''
-    }]
-  }];
+      label: 'Nuevo producto',
+      icon: 'cube-plus',
+    },
+    {
+      path: '/admin/products/all',
+      label: 'Gestión',
+      icon: 'checklist'
+    }
+  ];
 
-  toggleAccordion(container:HTMLDivElement, accordionRef: HTMLDivElement) {
+
+  toggleAccordion(container: HTMLDivElement, accordionRef: HTMLDivElement) {
     const isCollapsed = accordionRef.classList.contains('accordion-collapsed')
 
     if (isCollapsed) {
@@ -33,6 +31,6 @@ export class LayoutComponent {
     } else {
       container.classList.remove('bg-indigo-900')
       accordionRef.classList.add('accordion-collapsed');
-    } 
+    }
   }
 }

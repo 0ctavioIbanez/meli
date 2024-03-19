@@ -10,7 +10,7 @@ export class ProductCardComponent {
   @Input() product: Product = {
     id: '',
     name: '',
-    amount: '',
+    amount: 0,
     price: 0
   };
   @Output() addCart: EventEmitter<Product> = new EventEmitter();

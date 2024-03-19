@@ -1,15 +1,9 @@
 <section class="bg-indigo-950 px-3 pt-1.5 pb-1.5 h-screen flex">
     <aside class="w-52 text-indigo-50">
-        <div *ngFor="let route of routes" class="w-full text-left transition-all rounded-lg" #container>
-            <button (click)="toggleAccordion(container, accordion)" class="w-full text-left">
-                {{ route.label }}
-            </button>
-            <div class="accordion-collapsed transition-all" #accordion>
-                <a [routerLink]="nav.path" class="block ml-5 hover:text-purple-950 hover:cursor-pointer" *ngFor="let nav of route?.items">
-                    {{ nav.label }}
-                </a>
-            </div>
-        </div>
+        <a class="flex items-center py-3" [routerLink]="route.path" *ngFor="let route of routes">
+            <i-tabler class="text-indigo-300" [name]="route.icon" />
+            <span class="pl-1">{{ route.label }}</span>
+        </a>
     </aside>
 
     <main

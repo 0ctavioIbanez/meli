@@ -2,7 +2,7 @@ export interface Routes {
     path: string,
     label: string,
     items?: Routes[],
-    icon?: string
+    icon: string
 };
 
 export interface Model {
@@ -16,10 +16,11 @@ export interface Model {
 export interface Product {
     id: string,
     name: string,
-    amount: number | string,
-    price: number | string,
+    amount: number,
+    price: number,
     description?: string,
-    models?: Model[]
+    models?: Model[],
+    image?: string
 }
 
 export interface ServiceResponse {

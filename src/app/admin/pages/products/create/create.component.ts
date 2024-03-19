@@ -1,5 +1,6 @@
-import { Component, DoCheck } from '@angular/core';
+import { Component, DoCheck, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FilePond } from 'filepond';
 import { Model, Product, ServiceResponse } from 'src/app/admin/interface.admin';
 import { ModelService } from 'src/app/services/model/model.service';
 import { ProductService } from 'src/app/services/product/product.service';
@@ -14,6 +15,7 @@ export class CreateComponent implements DoCheck {
   isProductFilled: boolean = false;
   isModelFilled: boolean = false;
   accordionToShow: string = 'product';
+  @ViewChild('pond') pond!: FilePond;
   product: Product = {
     id: uuid(),
     name: '',
@@ -94,10 +96,12 @@ export class CreateComponent implements DoCheck {
   }
 
   createProduct() {
-    this.producService.create(this.product).subscribe((res: any) => this.responseHandler(res));
+    this.producService.create({
+      ...this.product,
+      image: this.pond.getFile().getFileEncodeBase64String()
+    }).subscribe((res: any) => this.responseHandler(res));
     this.modelService.addToProduct(this.product.id, this.models).subscribe(res => {
       this.responseHandler(res);
-      this.models = [];
       this.router.navigateByUrl(`/admin/products/product?productId=${this.product.id}`);
     });
   }
