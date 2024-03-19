@@ -14,24 +14,24 @@
                 <td class="p-3">{{ item.name }}</td>
                 <td class="p-3">
                     <div>
-                        <select name="" id="">
+                        <select name="modelId" #model class="px-3 py-2 rounded-lg w-40" (change)="onCartDetailChange(item.productId, model)">
                             <option value="">Selecciona</option>
                             <option [value]="model.id" *ngFor="let model of item.models">{{ model.color }}</option>
                         </select>
                     </div>
                 </td>
-                <td class="p-3">{{ item.amount }}</td>
+                <td class="p-3">{{ item.price | currency }}</td>
                 <td class="p-3">
-                    <input-quantity />
+                    <input-quantity [disabled]="!item.modelId" [max]="getMax(item)" (onChange)="onCartDetailChange(item.productId, { name: 'quantity', value: $event })" />
                 </td>
-                <td class="p-3"></td>
+                <td class="p-3 text-right"> {{ getTotal(item.productId) | currency }} </td>
             </tr>
         </tbody>
         <tbody>
             <tr>
                 <td colspan="6" class="bg-slate-200 p-3">
                     <div class="flex justify-end">
-                        <h2 class="text-lg font-semibold text-slate-600">total</h2>
+                        <h2 class="text-lg font-semibold text-slate-600">{{getTotal() | currency}}</h2>
                     </div>
                 </td>
             </tr>

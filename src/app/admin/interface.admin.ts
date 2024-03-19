@@ -41,3 +41,13 @@ export interface Sale {
     quantity: number,
     total: number
 }
+
+export interface Purchasing {
+    quantity: number,
+    price: number,
+    productId: string,
+    modelId: string,
+    image?: string,
+    name: string,
+    models: Model[]
+}

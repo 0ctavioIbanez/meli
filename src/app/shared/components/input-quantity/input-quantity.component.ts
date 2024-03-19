@@ -10,10 +10,11 @@ export class InputQuantityComponent {
   @Input() max: number | boolean = false;
   @Input() min: number | boolean = false;
   @Input() invalid: boolean = false;
+  @Input() disabled: boolean = false;
   @Output() onChange:EventEmitter<number> = new EventEmitter();
 
-  increment() {
-    if (this.max && Number(this.max) >= this.value) {
+  increment() {    
+    if (this.max && (Number(this.max) <= this.value)) {
       return;
     }
     this.value = Number(this.value) + 1;
