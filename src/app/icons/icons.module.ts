@@ -6,7 +6,8 @@ import {
   IconChevronUp,
   IconCurrencyDollar,
   IconStackPush,
-  IconShoppingCartPlus
+  IconShoppingCartPlus,
+  IconShoppingCart
  } from 'angular-tabler-icons/icons';
 
 const icons = {
@@ -14,7 +15,8 @@ const icons = {
   IconChevronUp,
   IconCurrencyDollar,
   IconStackPush,
-  IconShoppingCartPlus
+  IconShoppingCartPlus,
+  IconShoppingCart
 };
 
 @NgModule({

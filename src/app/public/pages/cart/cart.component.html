@@ -1,0 +1,43 @@
+<section class="container mx-auto">
+    <table class="w-full">
+        <thead class="text-slate-600 font-semibold text-sm text-left">
+            <th class="p-3">#</th>
+            <th class="p-3">Producto</th>
+            <th class="p-3">Modelo</th>
+            <th class="p-3">Precio</th>
+            <th class="p-3">Cantidad</th>
+            <th class="p-3 text-right">Total</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of items; let i = index" [ngClass]="i % 2 === 0 ? 'bg-slate-100': ''">
+                <td class="p-3">{{ i + 1  }}</td>
+                <td class="p-3">{{ item.name }}</td>
+                <td class="p-3">
+                    <div>
+                        <select name="" id="">
+                            <option value="">Selecciona</option>
+                            <option [value]="model.id" *ngFor="let model of item.models">{{ model.color }}</option>
+                        </select>
+                    </div>
+                </td>
+                <td class="p-3">{{ item.amount }}</td>
+                <td class="p-3">
+                    <input-quantity />
+                </td>
+                <td class="p-3"></td>
+            </tr>
+        </tbody>
+        <tbody>
+            <tr>
+                <td colspan="6" class="bg-slate-200 p-3">
+                    <div class="flex justify-end">
+                        <h2 class="text-lg font-semibold text-slate-600">total</h2>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="flex justify-end mt-6">
+        <button class="primary-btn bg-yellow-300 hover:bg-yellow-400 text-slate-700">Continuar</button>
+    </div>
+</section>

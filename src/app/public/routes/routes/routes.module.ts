@@ -5,7 +5,8 @@ import { HomeComponent } from '../../pages/home/home.component';
 import { ProductCardComponent } from '../../components/product-card/product-card.component';
 import { IconsModule } from 'src/app/icons/icons.module';
 import { CommonModule } from '@angular/common';
-
+import { CartComponent } from '../../components/cart/cart/cart.component';
+import { CartComponent as SummaryPage } from '../../pages/cart/cart.component';
 
 const routes: Routes = [{
   path: '',
@@ -14,7 +15,11 @@ const routes: Routes = [{
   children: [{
     path: '',
     component: HomeComponent
-  }]
+  },
+{
+  path: 'summary',
+  component: SummaryPage
+}]
 }];
 
 
@@ -22,12 +27,14 @@ const routes: Routes = [{
 @NgModule({
   declarations: [
     HomeComponent,
-    ProductCardComponent
+    ProductCardComponent,
+    CartComponent,
   ],
   imports: [
     RouterModule.forChild(routes),
     IconsModule,
     CommonModule
-  ]
+  ],
+  exports: [CartComponent]
 })
 export class RoutesModule { }

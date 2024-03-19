@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
 import { AllComponent } from '../../pages/products/all/all.component';
 import { IconsModule } from 'src/app/icons/icons.module';
 import { ModelCardComponent } from '../../components/model-card/model-card.component';
-import { InputQuantityComponent } from '../../components/input-quantity/input-quantity.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 const routes: Routes = [
@@ -57,13 +57,13 @@ const routes: Routes = [
     AccordionComponent,
     AllComponent,
     ModelCardComponent,
-    InputQuantityComponent
   ],
   imports: [
     RouterModule.forChild(routes),
     CommonModule,
     FormsModule,
-    IconsModule
+    IconsModule,
+    SharedModule
   ],
   exports: [
     RouterModule,

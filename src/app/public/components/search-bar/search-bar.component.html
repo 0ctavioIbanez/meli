@@ -1,4 +1,4 @@
 <div class="rounded bg-white shadow">
-    <input class="bg-transparent outline-none p-2" type="text" [placeholder]="placeholder">
-
+    <input (keyup)="onType(search)" #search class="bg-transparent outline-none w-full p-2" type="text"
+        [placeholder]="placeholder" [(ngModel)]="term">
 </div>
