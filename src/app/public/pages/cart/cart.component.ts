@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { Model, Product, Purchasing } from 'src/app/admin/interface.admin';
+import { Model, Product, Purchasing, Sale } from 'src/app/admin/interface.admin';
 import { CartService } from 'src/app/services/cart/cart.service';
+import { SalesService } from 'src/app/services/sales/sales.service';
+import { v4 } from 'uuid';
 
 @Component({
   selector: 'app-cart',
@@ -12,7 +14,7 @@ export class CartComponent {
   items: Purchasing[] | any = [];
   purchaseDetails: any = [];
 
-  constructor(private cartService: CartService) {
+  constructor(private cartService: CartService, private saleService: SalesService) {
     this.cartService.get().subscribe(({ response }) => {
       this.products = response;
       this.items = this.products.map(({ price, id, image, name, models = [] }: Product) => ({ price, productId: id, quantity: 0, modelId: '', image, name, models }));
@@ -37,5 +39,25 @@ export class CartComponent {
     const { models } = this.items.find(({ productId: _productId }: Purchasing) => productId === _productId);
     const { stock } = models.find(({ id }: Model) => modelId === id) || {};
     return stock || false;
+  }
+
+  get isPurchasingInfoComplete() {
+    const mandatoryValues = this.items.map(({ modelId, quantity }: Purchasing) => ({ modelId, quantity}));
+    return mandatoryValues.every(({ modelId, quantity }: Purchasing) => modelId && quantity);
+  }
+
+  purchasing() {
+    const id = v4();
+    const salesPayload = this.items.map(({productId, modelId, quantity, price }: Purchasing) => ({
+      id,
+      productId,
+      modelId,
+      quantity,
+      total: quantity * price
+    }));
+    salesPayload.forEach((sale: Sale) => {
+      this.saleService.new(sale).subscribe(res => console.log(res));
+    });
+    sessionStorage.removeItem('cart');
   }
 }
