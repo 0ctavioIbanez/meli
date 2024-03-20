@@ -23,6 +23,9 @@
                 <td class="p-3">{{ item.price | currency }}</td>
                 <td class="p-3">
                     <input-quantity [disabled]="!item.modelId" [max]="getMax(item)" (onChange)="onCartDetailChange(item.productId, { name: 'quantity', value: $event })" />
+                    <div class="flex justify-center pt-2">
+                        <button class="text-xs underline text-slate-600" (click)="requestDetele(item.productId)">Eliminar</button>
+                    </div>
                 </td>
                 <td class="p-3 text-right"> {{ getTotal(item.productId) | currency }} </td>
             </tr>

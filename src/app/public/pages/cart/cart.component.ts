@@ -15,6 +15,10 @@ export class CartComponent {
   items: Purchasing[] | any = [];
 
   constructor(private cartService: CartService, private saleService: SalesService, private toast: NgToastService) {
+    this.getItems();
+  }
+
+  getItems() {
     this.cartService.get().subscribe(({ response }) => {
       this.products = response;
       this.items = this.products.map(({ price, id, image, name, models = [] }: Product) => ({ price, productId: id, quantity: 0, modelId: '', image, name, models }));
@@ -61,5 +65,17 @@ export class CartComponent {
     sessionStorage.removeItem('cart');
     this.toast.success({ detail: 'Compra exitosa', summary: 'Tus productos van en camino'});
     this.items = [];
+  }
+
+  requestDetele(productId: string) {
+    const shouldDelete = confirm('¿Quitar del producto?');
+    if (!shouldDelete) {
+      return;
+    }
+    this.cartService.remove(productId).subscribe(({ message }) => {
+      this.toast.success({ detail: message });
+      this.getItems();
+      this.cartService.setQuantity();
+    })
   }
 }

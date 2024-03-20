@@ -2,10 +2,17 @@
     <img class="object-cover w-full h-full" src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
 </section>
 
-<section class="container mx-auto mt-10 py-6">
+<section class="md:container mx-auto mt-10 py-6">
     <h1 class="text-3xl text-slate-800 mb-6">Productos</h1>
     <div *ngIf="!products.length" class="pt-10">
         <p class="text-center italic text-slate-600">No se encontraron resultados</p>
     </div>
-    <product-card class="w-52" [product]="product" (addCart)="addProductToCart($event)" *ngFor="let product of products"></product-card>
+    <div class="flex flex-row flex-wrap justify-between">
+            <product-card 
+                class="mb-3 w-1/2 md:w-80 flex-grow flex justify-center"
+                *ngFor="let product of products" 
+                [product]="product" 
+                (addCart)="addProductToCart($event)" 
+            />
+    </div>
 </section>
