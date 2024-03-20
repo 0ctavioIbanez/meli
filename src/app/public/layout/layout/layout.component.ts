@@ -7,8 +7,6 @@ import { CartService } from 'src/app/services/cart/cart.service';
   styleUrls: ['./layout.component.scss']
 })
 export class LayoutComponent {
-    total: number = this.cart.total();
-
     constructor(public cart:CartService) {
       this.cart.setQuantity();
     }

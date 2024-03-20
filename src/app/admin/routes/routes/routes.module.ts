@@ -6,7 +6,6 @@ import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
 import { LayoutComponent } from '../../layout/layout/layout.component';
 import { AccordionComponent } from '../../components/accordion/accordion.component';
 import { CreateComponent } from '../../pages/products/create/create.component';
-import { ToggleComponent } from '../../components/toggle/toggle.component';
 import { CommonModule } from '@angular/common';
 import { AllComponent } from '../../pages/products/all/all.component';
 import { IconsModule } from 'src/app/icons/icons.module';
@@ -53,7 +52,6 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     LayoutComponent,
-    ToggleComponent,
     CreateComponent,
     AccordionComponent,
     AllComponent,
@@ -68,7 +66,6 @@ const routes: Routes = [
   ],
   exports: [
     RouterModule,
-    ToggleComponent,
     CommonModule
   ]
 })
