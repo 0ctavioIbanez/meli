@@ -61,13 +61,12 @@
                 <label for="" class="block mb-2 text-sm font-semibold text-indigo-800">Ingresa una cantidad</label>
                 <input-quantity (onChange)="quantity = $event" />
             </div>
-            <div class="mt-3">
-                <label for="" class="label">Descripción</label>
-                <input type="text" class="control" [(ngModel)]="description">
-            </div>
             <div class="mt-6">
-                <button (click)="confirm()" class="primary-btn bg-yellow-500 w-full text-center text-indigo-800" [disabled]="!quantity">
-                    Confirmar <span *ngIf="registerType === 'out'">por {{ quantity * productSelected.amount | currency }}</span>
+                <button *ngIf="registerType === 'out'" (click)="onSale()" class="primary-btn bg-yellow-500 w-full text-center text-indigo-800" [disabled]="!quantity">
+                    Confirmar <span>por {{ quantity * productSelected.amount | currency }}</span>
+                </button>
+                <button *ngIf="registerType === 'in'" (click)="onPurchase()" class="primary-btn bg-yellow-500 w-full text-center text-indigo-800" [disabled]="!quantity">
+                    Confirmar
                 </button>
             </div>
         </div>

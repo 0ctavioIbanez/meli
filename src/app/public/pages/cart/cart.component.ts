@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NgToastService } from 'ng-angular-popup';
 import { Model, Product, Purchasing, Sale } from 'src/app/admin/interface.admin';
 import { CartService } from 'src/app/services/cart/cart.service';
 import { SalesService } from 'src/app/services/sales/sales.service';
@@ -12,9 +13,8 @@ import { v4 } from 'uuid';
 export class CartComponent {
   private products: Product[] = [];
   items: Purchasing[] | any = [];
-  purchaseDetails: any = [];
 
-  constructor(private cartService: CartService, private saleService: SalesService) {
+  constructor(private cartService: CartService, private saleService: SalesService, private toast: NgToastService) {
     this.cartService.get().subscribe(({ response }) => {
       this.products = response;
       this.items = this.products.map(({ price, id, image, name, models = [] }: Product) => ({ price, productId: id, quantity: 0, modelId: '', image, name, models }));
@@ -46,7 +46,7 @@ export class CartComponent {
     return mandatoryValues.every(({ modelId, quantity }: Purchasing) => modelId && quantity);
   }
 
-  purchasing() {
+  async purchasing() {
     const id = v4();
     const salesPayload = this.items.map(({productId, modelId, quantity, price }: Purchasing) => ({
       id,
@@ -59,5 +59,7 @@ export class CartComponent {
       this.saleService.new(sale).subscribe(res => console.log(res));
     });
     sessionStorage.removeItem('cart');
+    this.toast.success({ detail: 'Compra exitosa', summary: 'Tus productos van en camino'});
+    this.items = [];
   }
 }

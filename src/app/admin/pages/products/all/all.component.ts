@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Model, ModelActionClick, Product, ServiceResponse } from 'src/app/admin/interface.admin';
+import { NgToastService } from 'ng-angular-popup';
+import { ModelActionClick, Product, ServiceResponse } from 'src/app/admin/interface.admin';
 import { ProductService } from 'src/app/services/product/product.service';
+import { PurchaseService } from 'src/app/services/purchase/purchase.service';
 import { SalesService } from 'src/app/services/sales/sales.service';
 import { v4 } from 'uuid';
 
@@ -18,7 +20,16 @@ export class AllComponent {
   quantity: number = 0;
   description: string = '';
 
-  constructor(private productService: ProductService, private saleService: SalesService, private router: Router) {
+  constructor(private productService: ProductService,
+    private saleService: SalesService,
+    private router: Router,
+    private purchaseService: PurchaseService,
+    private toast: NgToastService
+  ) {
+    this.getProducts();
+  }
+
+  getProducts() {
     this.productService.get().subscribe(({ response }: ServiceResponse) => {
       this.products = response
     });
@@ -45,16 +56,26 @@ export class AllComponent {
     this.modelSelectedId = modelId;
   }
 
-  confirm() {
+  onSale() {
     this.saleService.new({
       id: v4(),
       productId: this.productSelected.id,
       modelId: this.modelSelectedId,
       quantity: this.quantity,
       total: this.quantity * this.productSelected.amount
-    }).subscribe(res => {
+    }).subscribe(({ message }) => {
+      this.toast.success({ detail: message })
       this.quantity = 0;
       this.description = '';
+      this.getProducts();
     })
+  }
+
+  onPurchase() {
+    this.purchaseService.update(this.productSelected.id, this.modelSelectedId, this.quantity)
+      .subscribe(({ message }) => {
+        this.toast.success({ detail: message });
+        this.getProducts();
+      })
   }
 }

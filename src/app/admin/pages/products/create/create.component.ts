@@ -1,6 +1,7 @@
 import { Component, DoCheck, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FilePond } from 'filepond';
+import { NgToastService } from 'ng-angular-popup';
 import { Model, Product, ServiceResponse } from 'src/app/admin/interface.admin';
 import { ModelService } from 'src/app/services/model/model.service';
 import { ProductService } from 'src/app/services/product/product.service';
@@ -30,7 +31,7 @@ export class CreateComponent implements DoCheck {
   };
   models: Model[] = [];
 
-  constructor(private producService: ProductService, private modelService: ModelService, private route: ActivatedRoute, private router: Router) {
+  constructor(private producService: ProductService, private modelService: ModelService, private route: ActivatedRoute, private router: Router, private toast: NgToastService) {
     this.get(this.route.snapshot.queryParams['productId']);
   }
 
@@ -52,7 +53,7 @@ export class CreateComponent implements DoCheck {
 
   private checkModel() {
     const isValid = Object.values(this.model).every(val => val);
-    
+
     if (!isValid) {
       this.isModelFilled = false;
     } else {
@@ -61,7 +62,13 @@ export class CreateComponent implements DoCheck {
   }
 
   private responseHandler({ message, status }: ServiceResponse) {
-    console.log("TODO");
+    if (status === 'success') {
+      this.toast.success({ detail: message });
+    } else if (status === 'warning') {
+      this.toast.warning({ detail: message });
+    } else {
+      this.toast.error({ detail: message });
+    }
   }
 
   get(productId: 'string' | undefined) {
@@ -70,7 +77,7 @@ export class CreateComponent implements DoCheck {
     }
     this.producService.get(productId).subscribe(({ response = {} }: ServiceResponse) => {
       const { models = [] } = response;
-      
+
       this.product = response;
       this.models = models;
     });
@@ -85,7 +92,7 @@ export class CreateComponent implements DoCheck {
   }
 
   onAddModel() {
-    this.models.push({...this.model});
+    this.models.push({ ...this.model });
     this.model = {
       id: uuid(),
       color: '',
@@ -101,7 +108,6 @@ export class CreateComponent implements DoCheck {
       image: this.pond.getFile().getFileEncodeBase64String()
     }).subscribe((res: any) => this.responseHandler(res));
     this.modelService.addToProduct(this.product.id, this.models).subscribe(res => {
-      this.responseHandler(res);
       this.router.navigateByUrl(`/admin/products/product?productId=${this.product.id}`);
     });
   }

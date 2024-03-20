@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { PublicModule } from './public/public.module';
 import { AdminModule } from './admin/admin.module';
 import { SharedModule } from './shared/shared.module';
+import { NgToastModule } from 'ng-angular-popup';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { SharedModule } from './shared/shared.module';
     AppRoutingModule,
     PublicModule,
     AdminModule,
-    SharedModule
+    SharedModule,
+    NgToastModule
   ],
   exports: [ SharedModule ],
   providers: [

@@ -7,7 +7,6 @@ img {
     width: 100%;
 }
 
-
 .primary-btn {
     @apply rounded-lg p-3 min-w-32 font-semibold shadow hover:cursor-pointer;
     &[disabled] {

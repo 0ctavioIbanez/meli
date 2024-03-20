@@ -45,6 +45,7 @@ const routes: Routes = [
   },
   {
     path: '**',
+    pathMatch: 'prefix',
     redirectTo: '/'
   }
 ];

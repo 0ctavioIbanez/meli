@@ -16,10 +16,11 @@ const routes: Routes = [{
     path: '',
     component: HomeComponent
   },
-{
-  path: 'summary',
-  component: SummaryPage
-}]
+  {
+    path: 'summary',
+    component: SummaryPage
+  },
+  ]
 }];
 
 

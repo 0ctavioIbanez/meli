@@ -1,4 +1,4 @@
-<section class="container mx-auto">
+<section class="container mx-auto" *ngIf="items.length">
     <table class="w-full">
         <thead class="text-slate-600 font-semibold text-sm text-left">
             <th class="p-3">#</th>
@@ -39,5 +39,12 @@
     </table>
     <div class="flex justify-end mt-6">
         <button (click)="purchasing()" [disabled]="!isPurchasingInfoComplete" class="primary-btn bg-yellow-300 hover:bg-yellow-400 text-slate-700">Comprar</button>
+    </div>
+</section>
+
+<section *ngIf="!items.length" class="container mx-auto mt-10">
+    <p class="text-center text-slate-600 pt-6">Nada por aquí</p>
+    <div class="flex justify-center mt-10">
+        <button routerLink="/" class="primary-btn bg-yellow-300 text-slate-600 font-semibold">Ir a la tienda</button>
     </div>
 </section>

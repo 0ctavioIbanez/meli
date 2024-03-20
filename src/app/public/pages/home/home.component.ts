@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { NgToastService } from 'ng-angular-popup';
 import { Product, ServiceResponse } from 'src/app/admin/interface.admin';
 import { CartService } from 'src/app/services/cart/cart.service';
 import { ProductService } from 'src/app/services/product/product.service';
@@ -15,7 +16,7 @@ export class HomeComponent {
   products: Product[] = [];
   cartItems: string[] = [];
 
-  constructor(private productService: ProductService, private cartService: CartService, private route: ActivatedRoute) {
+  constructor(private productService: ProductService, private cartService: CartService, private route: ActivatedRoute, private toast: NgToastService) {
     this.route.queryParams.subscribe(param => {
       this.term = param['search'];
       this.search();
@@ -38,8 +39,12 @@ export class HomeComponent {
   }
 
   addProductToCart(product: Product) {
-    this.cartService.add(product).subscribe(res => {
-
+    this.cartService.add(product).subscribe(({ message, status }) => {
+      if (status === 'success') {
+        this.toast.success({ detail: message })
+      } else {
+        this.toast.warning({ detail: message })
+      }
     });
   }
 }
