@@ -13,6 +13,7 @@ import { v4 as uuid } from 'uuid';
   styleUrls: ['./create.component.scss']
 })
 export class CreateComponent implements DoCheck {
+  paramProductId: string = '';
   isProductFilled: boolean = false;
   isModelFilled: boolean = false;
   accordionToShow: string = 'product';
@@ -32,7 +33,8 @@ export class CreateComponent implements DoCheck {
   models: Model[] = [];
 
   constructor(private producService: ProductService, private modelService: ModelService, private route: ActivatedRoute, private router: Router, private toast: NgToastService) {
-    this.get(this.route.snapshot.queryParams['productId']);
+    this.paramProductId = this.route.snapshot.queryParams['productId'];
+    this.get(this.paramProductId);
   }
 
   ngDoCheck() {
@@ -71,7 +73,7 @@ export class CreateComponent implements DoCheck {
     }
   }
 
-  get(productId: 'string' | undefined) {
+  get(productId: string | undefined) {
     if (!productId) {
       return;
     }
@@ -102,10 +104,27 @@ export class CreateComponent implements DoCheck {
     };
   }
 
+  deleteModel(modelId: string) {
+    const isconfirmed = confirm('¿Eliminar modelo?');
+    if (!isconfirmed) {
+      return;
+    }
+    this.modelService.remove(this.paramProductId, modelId)
+      .subscribe(({ message }) => {
+        this.toast.success({ detail: message });
+        this.get(this.paramProductId);
+      })
+  }
+
+  editModel(model: Model) {
+    this.model = model;
+    this.accordionToShow = 'models';
+  }
+
   createProduct() {
     this.producService.create({
       ...this.product,
-      image: this.pond.getFile().getFileEncodeBase64String()
+      image: this.pond.getFile()?.getFileEncodeBase64String()
     }).subscribe((res: any) => this.responseHandler(res));
     this.modelService.addToProduct(this.product.id, this.models).subscribe(res => {
       this.router.navigateByUrl(`/admin/products/product?productId=${this.product.id}`);

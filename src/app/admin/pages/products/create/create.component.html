@@ -88,6 +88,14 @@
                             <p>Color: {{ _model.color }}</p>
                             <p>Talla: {{ _model.size }}</p>
                             <p>Stock: {{ _model.stock }}</p>
+                            <div *ngIf="paramProductId" class="flex justify-center border-t border-slate-300 pt-2">
+                                <button class="bg-indigo-100 hover:bg-indigo-200 mr-1 rounded-full px-1.5 pt-1 flex flex-col items-center justify-center text-indigo-700" (click)="editModel(_model)">
+                                    <i-tabler style="width: 18px;" name="edit" />
+                                </button>
+                                <button class="bg-indigo-100 hover:bg-indigo-200 rounded-full px-1.5 pt-1 flex flex-col items-center justify-center text-indigo-700" (click)="deleteModel(_model.id)">
+                                    <i-tabler style="width: 18px;" name="trash-x" />
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -33,7 +33,7 @@ export class ProductService {
     const _products = JSON.parse(savedProducts);
 
     if (_products.find(({ id }: Product) => id === product.id)) {
-      return of({ status: 'warning', message: 'El producto ya ha sido registrado' });
+      return of({ status: 'warning', message: 'Registro hecho' });
     }
 
     _products.push(product);
